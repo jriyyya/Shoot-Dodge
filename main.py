@@ -18,7 +18,7 @@ PLAYER_VEL = 5
 
 STAR_WIDTH = 10
 STAR_HEIGHT = 20
-STAR_VEL = 3
+STAR_VEL = 5
 
 def draw(player, elapsed_time, stars):
     WIN.blit(BG, (0, 0))
@@ -27,10 +27,11 @@ def draw(player, elapsed_time, stars):
     WIN.blit(time_text, (10,10))
 
     pygame.draw.rect(WIN, (255, 255, 255), player)
-    pygame.display.update()
 
     for star in stars:
-        pygame.draw.rect(WIN, 'red', star)
+        pygame.draw.rect(WIN, (255, 0, 0), star)
+
+    pygame.display.update()
 
 def main():
     run = True
@@ -81,9 +82,14 @@ def main():
                 hit = True
                 break
 
+        if hit:
+            lost_text = FONT.render("YOU LOST!", 1, "white")
+            WIN.blit(lost_text, (WIDTH/2 - lost_text.get_width()/2, HEIGHT/2 - lost_text.get_height()/2))
+            pygame.display.update()
+            pygame.time.delay(3000)
+            main()
 
-                
-        draw(player, elapsed_time)
+        draw(player, elapsed_time, stars)
     pygame.quit()
 
 if __name__ == "__main__":
